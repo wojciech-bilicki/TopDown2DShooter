@@ -1,11 +1,19 @@
 extends CharacterBody2D
 
 
-var movement_direction = Vector2.ZERO
-@export var walking_speed = 100
+@export var walking_speed = 300
 @export var rotation_speed = 5
+@export var linked_position_node: Node2D
 
+var movement_direction = Vector2.ZERO
 var angle
+
+func _process(delta):
+	pass
+	#if linked_position_node != null:
+		#linked_position_node.position = position
+		#linked_position_node.rotation = global_rotation
+
 
 func _physics_process(delta):
 	velocity =  movement_direction * walking_speed
@@ -31,9 +39,6 @@ func _input(event):
 	var mouse_position = get_viewport().get_mouse_position()
 	var look_direction = (mouse_position - position).normalized()
 
-
 	angle = (get_global_mouse_position() - self.global_position).angle()
-
-
 
 
