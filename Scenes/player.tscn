@@ -1,16 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://kpskrxg6ood"]
+[gd_scene load_steps=7 format=3 uid="uid://kpskrxg6ood"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_1bkx2"]
 [ext_resource type="Texture2D" uid="uid://56i2tyitansg" path="res://Assets/spritesheet_characters.png" id="1_mp8xd"]
 [ext_resource type="Texture2D" uid="uid://db8wpbrcnbsik" path="res://visibility_mask_1.png" id="3_gllue"]
 [ext_resource type="Script" path="res://Scenes/interact.gd" id="4_xq60x"]
+[ext_resource type="Script" path="res://Scripts/health_system.gd" id="5_xldj2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_44mkd"]
 radius = 19.0
 height = 38.0
 
-[node name="Player" type="CharacterBody2D"]
-collision_mask = 10
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 14
 script = ExtResource("1_1bkx2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -52,6 +53,9 @@ offset_right = 51.0
 offset_bottom = -22.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "INTERACT [F]"
+
+[node name="HealthSystem" type="Node" parent="."]
+script = ExtResource("5_xldj2")
 
 [connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="_on_body_exited"]

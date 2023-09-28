@@ -13,3 +13,6 @@ func physics_update(delta) -> void:
 
 func enter(msg = {}) -> void:
 	pass
+
+func exit() -> void:
+	pass

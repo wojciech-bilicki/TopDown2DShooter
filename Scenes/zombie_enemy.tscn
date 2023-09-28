@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3bkb32djsrnn"]
+[gd_scene load_steps=10 format=3 uid="uid://b3bkb32djsrnn"]
 
 [ext_resource type="Script" path="res://Scenes/zombie_enemy.gd" id="1_ljqcb"]
 [ext_resource type="Texture2D" uid="uid://57u6c4shgvir" path="res://Assets/zombie_standing.png" id="1_xyrew"]
 [ext_resource type="Script" path="res://Scripts/state_machine.gd" id="3_k8lia"]
 [ext_resource type="Script" path="res://Scenes/Idle.gd" id="4_swd7r"]
+[ext_resource type="Script" path="res://Scenes/random_timer.gd" id="5_dk42q"]
 [ext_resource type="Script" path="res://Scripts/wandering.gd" id="5_oltk2"]
+[ext_resource type="Script" path="res://Scenes/Chase.gd" id="7_h1c0r"]
+[ext_resource type="Script" path="res://Scenes/Attack.gd" id="8_fq5h7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7nwfs"]
 height = 36.0
@@ -13,6 +16,8 @@ height = 36.0
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_ljqcb")
+distance_to_stop_chasing = 500
+rotation_speed = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_xyrew")
@@ -22,8 +27,8 @@ region_rect = Rect2(186, 0, 56, 44)
 shape = SubResource("CapsuleShape2D_7nwfs")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 4.0
-target_desired_distance = 2.0
+path_desired_distance = 2.0
+target_desired_distance = 5.0
 avoidance_enabled = true
 radius = 20.0
 debug_enabled = true
@@ -37,9 +42,56 @@ script = ExtResource("4_swd7r")
 
 [node name="IdleTimer" type="Timer" parent="StateMachine/Idle"]
 wait_time = 2.0
+one_shot = true
+script = ExtResource("5_dk42q")
+
+[node name="RotationTimer" type="Timer" parent="StateMachine/Idle"]
+one_shot = true
+script = ExtResource("5_dk42q")
+min_time = 0.2
+max_time = 1.0
 
 [node name="Wandering" type="Node" parent="StateMachine"]
 script = ExtResource("5_oltk2")
 
-[connection signal="velocity_computed" from="NavigationAgent2D" to="StateMachine/Wandering" method="_on_navigation_agent_2d_velocity_computed"]
+[node name="Chase" type="Node" parent="StateMachine"]
+script = ExtResource("7_h1c0r")
+
+[node name="RandomTargetChaseUpdateTimer" type="Timer" parent="StateMachine/Chase"]
+one_shot = true
+script = ExtResource("5_dk42q")
+min_time = 0.5
+max_time = 3.0
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("8_fq5h7")
+
+[node name="StateLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = -46.0
+offset_right = 20.0
+offset_bottom = -23.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+
+[node name="VisionRayCast2D" type="RayCast2D" parent="."]
+exclude_parent = false
+target_position = Vector2(174, 0)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackArea"]
+polygon = PackedVector2Array(0, 0, 42, -25, 42, 29)
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="StateMachine" method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="StateMachine/Idle/IdleTimer" to="StateMachine/Idle" method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Idle/RotationTimer" to="StateMachine/Idle" method="_on_rotation_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Chase/RandomTargetChaseUpdateTimer" to="StateMachine/Chase" method="_on_random_target_chase_update_timer_timeout"]
+[connection signal="body_entered" from="AttackArea" to="StateMachine/Chase" method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="StateMachine/Attack" method="_on_attack_area_body_exited"]

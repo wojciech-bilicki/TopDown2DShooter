@@ -1,23 +1,18 @@
 extends CharacterBody2D
 
+class_name Player
 
 @export var walking_speed = 300
 @export var rotation_speed = 5
 @export var linked_position_node: Node2D
 
+@onready var health_system = $HealthSystem as HealtSystem	
+
 var movement_direction = Vector2.ZERO
 var angle
 
-func _process(delta):
-	pass
-	#if linked_position_node != null:
-		#linked_position_node.position = position
-		#linked_position_node.rotation = global_rotation
-
-
 func _physics_process(delta):
 	velocity =  movement_direction * walking_speed
-	
 	move_and_slide()
 	if angle:
 		global_rotation = lerp_angle(global_rotation, angle, delta * rotation_speed)
@@ -41,4 +36,7 @@ func _input(event):
 
 	angle = (get_global_mouse_position() - self.global_position).angle()
 
+func take_damage(damage: int):
+
+	health_system.take_damage(damage)
 
