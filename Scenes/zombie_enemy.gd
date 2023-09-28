@@ -4,17 +4,16 @@ class_name Zombie
  
 @onready var navigation_agent_2d = $NavigationAgent2D
 @onready var state_machine = $StateMachine as StateMachine
+@onready var health_system = $HealthSystem as HealtSystem
 
-# chasing variables
-@export var chance_to_stop_chase: float = .5
-@export var distance_to_stop_chasing = 250
+@export var health: float = 25
 
-# locomotion
+@export_group("Locomotion")
 @export var rotation_speed: float = 2
 @export var wandering_speed = 20
 @export var navigation_position: Node2D
 
-# scanning for player
+@export_group("Scanning for player")
 @export var angle_cone_of_vision := 90
 @export var max_vision_distance = 250
 @export var angle_between_rays = 30
@@ -25,6 +24,9 @@ class_name Zombie
 @export_range(0.1, 1) var attack_speed:float = 1
 @export_range(1, 10) var attack_damage:float = 2
 
+@export_group("Chasing")
+@export var chance_to_stop_chase: float = .5
+@export var distance_to_stop_chasing = 250
 
 func _ready():
 	var navigation_map = get_tree().get_first_node_in_group("tilemap").get_navigation_map(0)
@@ -57,3 +59,6 @@ func search_for_player_with_raycast():
 		
 		if vision_ray_cast_2d.is_colliding() && vision_ray_cast_2d.get_collider() is Player:
 			state_machine.transition_to("Chase")
+
+func take_damage(damage: int):
+	health_system.take_damage(damage)

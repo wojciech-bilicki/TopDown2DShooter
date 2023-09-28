@@ -1,9 +1,10 @@
-[gd_scene load_steps=99 format=3 uid="uid://c7moqvpkig7t4"]
+[gd_scene load_steps=100 format=3 uid="uid://c7moqvpkig7t4"]
 
 [ext_resource type="Texture2D" uid="uid://c4ypmbh3x8n3d" path="res://Assets/spritesheet_tiles.png" id="1_jmjlp"]
-[ext_resource type="PackedScene" uid="uid://kpskrxg6ood" path="res://Scenes/player.tscn" id="2_70lb8"]
-[ext_resource type="PackedScene" uid="uid://b3bkb32djsrnn" path="res://Scenes/zombie_enemy.tscn" id="5_4raig"]
-[ext_resource type="PackedScene" uid="uid://da7t77ehpw5fs" path="res://Scenes/door.tscn" id="5_rn3i4"]
+[ext_resource type="PackedScene" uid="uid://cloc2ixm2x00j" path="res://Scenes/player.tscn" id="2_70lb8"]
+[ext_resource type="PackedScene" uid="uid://v4tdx2y1jgbj" path="res://Scenes/zombie_enemy.tscn" id="5_4raig"]
+[ext_resource type="PackedScene" uid="uid://cv3gdtxpt1va5" path="res://Scenes/ui.tscn" id="5_21ue5"]
+[ext_resource type="PackedScene" path="res://Scenes/door.tscn" id="5_rn3i4"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_bso3f"]
 tile_data = PackedInt32Array(0, 1179648, 6, 65536, 1179648, 7, 1, 1245184, 6, 65537, 1245184, 7)
@@ -2478,19 +2479,24 @@ layer_3/tile_data = PackedInt32Array(-327656, 458752, 7, -524264, 458752, 7, -45
 visible = false
 color = Color(0.615686, 0.615686, 0.615686, 1)
 
-[node name="Player" parent="." instance=ExtResource("2_70lb8")]
+[node name="PlayerUI" parent="." instance=ExtResource("5_21ue5")]
+
+[node name="Player" parent="." node_paths=PackedStringArray("player_ui") instance=ExtResource("2_70lb8")]
 z_index = 4
 position = Vector2(1320, -908)
+player_ui = NodePath("../PlayerUI")
 
 [node name="Door" parent="." instance=ExtResource("5_rn3i4")]
 position = Vector2(1144, -517)
 rotation = -1.5708
 
-[node name="ZombieEnemy" parent="." node_paths=PackedStringArray("navigation_position") instance=ExtResource("5_4raig")]
+[node name="ZombieEnemy" parent="." instance=ExtResource("5_4raig")]
 z_index = 6
 position = Vector2(1164, -904)
 wandering_speed = 150
-navigation_position = NodePath("../NavigationPosition")
+distance_to_stop_chasing = 250
 
 [node name="NavigationPosition" type="Marker2D" parent="."]
 position = Vector2(1220, -212)
+
+[node name="Node" type="Node" parent="."]

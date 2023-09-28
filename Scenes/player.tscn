@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://kpskrxg6ood"]
+[gd_scene load_steps=7 format=3 uid="uid://cloc2ixm2x00j"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_1bkx2"]
 [ext_resource type="Texture2D" uid="uid://56i2tyitansg" path="res://Assets/spritesheet_characters.png" id="1_mp8xd"]
@@ -56,6 +56,11 @@ text = "INTERACT [F]"
 
 [node name="HealthSystem" type="Node" parent="."]
 script = ExtResource("5_xldj2")
+
+[node name="ShootingSystem" type="Node" parent="."]
+
+[node name="ShootingPoint" type="Marker2D" parent="ShootingSystem"]
+position = Vector2(27, 9)
 
 [connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="_on_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3bkb32djsrnn"]
+[gd_scene load_steps=11 format=3 uid="uid://v4tdx2y1jgbj"]
 
 [ext_resource type="Script" path="res://Scenes/zombie_enemy.gd" id="1_ljqcb"]
 [ext_resource type="Texture2D" uid="uid://57u6c4shgvir" path="res://Assets/zombie_standing.png" id="1_xyrew"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/wandering.gd" id="5_oltk2"]
 [ext_resource type="Script" path="res://Scenes/Chase.gd" id="7_h1c0r"]
 [ext_resource type="Script" path="res://Scenes/Attack.gd" id="8_fq5h7"]
+[ext_resource type="Theme" uid="uid://bw54nfubkjtol" path="res://Scenes/ui.theme" id="9_opojr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7nwfs"]
 height = 36.0
@@ -16,7 +17,6 @@ height = 36.0
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_ljqcb")
-distance_to_stop_chasing = 500
 rotation_speed = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -67,6 +67,7 @@ max_time = 3.0
 script = ExtResource("8_fq5h7")
 
 [node name="StateLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -88,6 +89,16 @@ collision_layer = 16
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackArea"]
 polygon = PackedVector2Array(0, 0, 42, -25, 42, 29)
+
+[node name="LifeBar" type="ProgressBar" parent="."]
+offset_left = -19.0
+offset_top = -37.0
+offset_right = 21.0
+offset_bottom = -27.0
+theme = ExtResource("9_opojr")
+step = 1.0
+value = 50.0
+show_percentage = false
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="StateMachine" method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="StateMachine/Idle/IdleTimer" to="StateMachine/Idle" method="_on_idle_timer_timeout"]

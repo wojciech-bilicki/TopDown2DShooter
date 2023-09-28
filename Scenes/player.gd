@@ -5,19 +5,21 @@ class_name Player
 @export var walking_speed = 300
 @export var rotation_speed = 5
 @export var linked_position_node: Node2D
+@export var player_ui: PlayerUI
 
 @onready var health_system = $HealthSystem as HealtSystem	
 
 var movement_direction = Vector2.ZERO
 var angle
 
+func _ready():
+	player_ui.set_life_bar_max_value(health_system.base_health)
+
 func _physics_process(delta):
 	velocity =  movement_direction * walking_speed
 	move_and_slide()
 	if angle:
 		global_rotation = lerp_angle(global_rotation, angle, delta * rotation_speed)
-	
-
 
 func _input(event):
 	if Input.is_action_pressed("move_backwards"):
@@ -39,4 +41,5 @@ func _input(event):
 func take_damage(damage: int):
 
 	health_system.take_damage(damage)
+	player_ui.update_life_bar_value(health_system.current_health)
 
