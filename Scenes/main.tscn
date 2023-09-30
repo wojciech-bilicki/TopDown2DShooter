@@ -2476,14 +2476,13 @@ layer_3/z_index = 3
 layer_3/tile_data = PackedInt32Array(-327656, 458752, 7, -524264, 458752, 7, -458731, 655360, 16, -327659, 655360, 16, -327653, 720896, 16, 524311, 1507328, 4, 524314, 786432, 16, 327703, 786432, 17, 524308, 786432, 16, 720919, 786432, 17)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.615686, 0.615686, 0.615686, 1)
 
 [node name="PlayerUI" parent="." instance=ExtResource("5_21ue5")]
 
 [node name="Player" parent="." node_paths=PackedStringArray("player_ui") instance=ExtResource("2_70lb8")]
 z_index = 4
-position = Vector2(1320, -908)
+position = Vector2(527, -927)
 player_ui = NodePath("../PlayerUI")
 
 [node name="Door" parent="." instance=ExtResource("5_rn3i4")]
@@ -2494,7 +2493,6 @@ rotation = -1.5708
 z_index = 6
 position = Vector2(1164, -904)
 wandering_speed = 150
-distance_to_stop_chasing = 250
 
 [node name="NavigationPosition" type="Marker2D" parent="."]
 position = Vector2(1220, -212)

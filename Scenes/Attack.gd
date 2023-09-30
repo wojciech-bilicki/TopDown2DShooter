@@ -26,7 +26,6 @@ func physics_update(delta):
 func attack():
 	
 	var player = get_tree().get_first_node_in_group("player")
-	print(player)
 	if player && player.has_method("take_damage"):
 		player.take_damage(attack_damage)
 		var attack_tween = get_tree().create_tween()

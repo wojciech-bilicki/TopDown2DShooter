@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://v4tdx2y1jgbj"]
+[gd_scene load_steps=12 format=3 uid="uid://v4tdx2y1jgbj"]
 
 [ext_resource type="Script" path="res://Scenes/zombie_enemy.gd" id="1_ljqcb"]
 [ext_resource type="Texture2D" uid="uid://57u6c4shgvir" path="res://Assets/zombie_standing.png" id="1_xyrew"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scenes/Chase.gd" id="7_h1c0r"]
 [ext_resource type="Script" path="res://Scenes/Attack.gd" id="8_fq5h7"]
 [ext_resource type="Theme" uid="uid://bw54nfubkjtol" path="res://Scenes/ui.theme" id="9_opojr"]
+[ext_resource type="Script" path="res://Scripts/health_system.gd" id="10_n0ubw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7nwfs"]
 height = 36.0
@@ -100,7 +101,9 @@ step = 1.0
 value = 50.0
 show_percentage = false
 
-[connection signal="velocity_computed" from="NavigationAgent2D" to="StateMachine" method="_on_navigation_agent_2d_velocity_computed"]
+[node name="HealthSystem" type="Node" parent="."]
+script = ExtResource("10_n0ubw")
+
 [connection signal="timeout" from="StateMachine/Idle/IdleTimer" to="StateMachine/Idle" method="_on_idle_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Idle/RotationTimer" to="StateMachine/Idle" method="_on_rotation_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Chase/RandomTargetChaseUpdateTimer" to="StateMachine/Chase" method="_on_random_target_chase_update_timer_timeout"]

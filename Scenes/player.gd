@@ -7,6 +7,8 @@ class_name Player
 @export var linked_position_node: Node2D
 @export var player_ui: PlayerUI
 
+@export var damage_per_bullet = 5
+
 @onready var health_system = $HealthSystem as HealtSystem	
 
 var movement_direction = Vector2.ZERO
@@ -37,6 +39,7 @@ func _input(event):
 	var look_direction = (mouse_position - position).normalized()
 
 	angle = (get_global_mouse_position() - self.global_position).angle()
+
 
 func take_damage(damage: int):
 

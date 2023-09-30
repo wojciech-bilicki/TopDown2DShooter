@@ -58,11 +58,9 @@ text = "INTERACT [F]"
 [node name="HealthSystem" type="Node" parent="."]
 script = ExtResource("5_xldj2")
 
-[node name="ShootingSystem" type="Node" parent="."]
+[node name="ShootingPoint" type="Marker2D" parent="."]
+position = Vector2(29, 9)
 script = ExtResource("6_d6lhd")
-
-[node name="ShootingPoint" type="Marker2D" parent="ShootingSystem"]
-position = Vector2(27, 9)
 
 [connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="_on_body_exited"]

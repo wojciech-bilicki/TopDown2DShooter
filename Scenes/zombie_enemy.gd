@@ -32,9 +32,9 @@ func _ready():
 	var navigation_map = get_tree().get_first_node_in_group("tilemap").get_navigation_map(0)
 	NavigationServer2D.agent_set_map(navigation_agent_2d.get_rid(), navigation_map)	
 	navigation_agent_2d.set_navigation_map(navigation_map)
+	health_system.died.connect(on_died)
 
 func move_to_position(target_position: Vector2):
-	#print(target_position)
 	var motion = position.direction_to(target_position ) * wandering_speed
 	navigation_agent_2d.set_velocity(motion)
 	look_at(target_position)
@@ -62,3 +62,6 @@ func search_for_player_with_raycast():
 
 func take_damage(damage: int):
 	health_system.take_damage(damage)
+	
+func on_died():
+	queue_free()

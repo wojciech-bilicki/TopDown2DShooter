@@ -37,7 +37,3 @@ func transition_to(target_state_name: String, msg: Dictionary = {}):
 	state_label.text = state_name
 
 
-
-
-func _on_navigation_agent_2d_velocity_computed(safe_velocity):
-	print(safe_velocity)

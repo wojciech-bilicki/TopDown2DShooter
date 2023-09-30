@@ -27,15 +27,10 @@ func get_random_position_in_radius(max_radius: float) -> Vector2:
 	var random_angle = randf() * 360.0
 	var random_point = Vector2.from_angle(random_angle) * randf_range(1.0,max_radius) + global_position
 	var navigation_point = NavigationServer2D.map_get_closest_point(navigation_agent_2d.get_navigation_map(), random_point)
-	print(navigation_point)
 	return navigation_point
 
 func move_to_next_random_wandering_location():
-	#print(owner)
 	random_position_in_radius = get_random_position_in_radius(wandering_radius)
 	navigation_agent_2d.target_position = random_position_in_radius
-	#print_debug(navigation_agent_2d.is_target_reached())
-	#print_debug(navigation_agent_2d.get_final_position())
-	#print_debug(navigation_agent_2d.is_target_reachable())
-	#print_debug(navigation_agent_2d.get_current_navigation_result().path)
+
 
