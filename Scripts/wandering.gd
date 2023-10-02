@@ -32,5 +32,3 @@ func get_random_position_in_radius(max_radius: float) -> Vector2:
 func move_to_next_random_wandering_location():
 	random_position_in_radius = get_random_position_in_radius(wandering_radius)
 	navigation_agent_2d.target_position = random_position_in_radius
-
-

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cloc2ixm2x00j"]
+[gd_scene load_steps=8 format=3 uid="uid://cloc2ixm2x00j"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_1bkx2"]
 [ext_resource type="Texture2D" uid="uid://56i2tyitansg" path="res://Assets/spritesheet_characters.png" id="1_mp8xd"]
@@ -6,15 +6,13 @@
 [ext_resource type="Script" path="res://Scenes/interact.gd" id="4_xq60x"]
 [ext_resource type="Script" path="res://Scripts/health_system.gd" id="5_xldj2"]
 [ext_resource type="Script" path="res://Scenes/shooting_system.gd" id="6_d6lhd"]
-[ext_resource type="AudioStream" uid="uid://2wbfu8g7ck1" path="res://Assets/Sound/pistol-shot.mp3" id="7_vtdu8"]
-[ext_resource type="AudioStream" uid="uid://0fx7p41ggu1h" path="res://Assets/Sound/pistol-reload.mp3" id="8_4848x"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_44mkd"]
 radius = 19.0
 height = 38.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-collision_mask = 206
+collision_mask = 14
 script = ExtResource("1_1bkx2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -63,12 +61,6 @@ script = ExtResource("5_xldj2")
 [node name="ShootingSystem" type="Marker2D" parent="."]
 position = Vector2(29, 9)
 script = ExtResource("6_d6lhd")
-
-[node name="ShotStreamPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_vtdu8")
-
-[node name="ReloadStreamPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("8_4848x")
 
 [connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="_on_body_exited"]

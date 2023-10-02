@@ -37,3 +37,5 @@ func transition_to(target_state_name: String, msg: Dictionary = {}):
 	state_label.text = state_name
 
 
+func _on_health_system_damage_taken(current_health):
+	transition_to("Chase")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cv3gdtxpt1va5"]
+[gd_scene load_steps=4 format=3 uid="uid://cv3gdtxpt1va5"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_205f5"]
 [ext_resource type="Theme" uid="uid://bw54nfubkjtol" path="res://Scenes/ui.theme" id="2_efidm"]
+[ext_resource type="Texture2D" uid="uid://crejfhgcj8jga" path="res://Assets/key.png" id="3_t6sv2"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_205f5")
@@ -24,3 +25,91 @@ size_flags_horizontal = 0
 theme = ExtResource("2_efidm")
 value = 20.0
 show_percentage = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="AmmoContainer" type="VBoxContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AmmoLeftLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "/10"
+
+[node name="KeyIcon" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("3_t6sv2")
+expand_mode = 2
+
+[node name="ExtractTimeLeftLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "10 s"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverContainer" type="CenterContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Panel" type="Panel" parent="GameOverContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -13.0
+offset_right = 56.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverLabel" type="Label" parent="GameOverContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "You extracted!"
+
+[node name="PlayAgainButton" type="Button" parent="GameOverContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Play again!
+"
+
+[connection signal="pressed" from="GameOverContainer/Panel/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
